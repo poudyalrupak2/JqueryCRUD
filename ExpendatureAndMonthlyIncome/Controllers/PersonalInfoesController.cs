@@ -7,11 +7,14 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
+using BookProject.Filters;
 using Domain.Models;
 using Domains.Data;
 
 namespace ExpendatureAndMonthlyIncome.Controllers
 {
+    [SessionCheck]
+
     public class PersonalInfoesController : Controller
     {
         private ExpendatureDbContext db = new ExpendatureDbContext();

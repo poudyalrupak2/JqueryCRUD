@@ -71,7 +71,7 @@ namespace LabProject.Controllers
                             {
                                 Session.Add("id", Admin.Id);
 
-                                return RedirectToAction("AdminIndex", "Dashboard");
+                                return RedirectToAction("index", "productdata");
                             }
                             if (roles.Contains("User"))
                             {

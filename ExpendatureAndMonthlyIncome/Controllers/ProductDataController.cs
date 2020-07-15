@@ -1,4 +1,5 @@
-﻿using Domain.Data.Implementation;
+﻿using BookProject.Filters;
+using Domain.Data.Implementation;
 using Domain.viewmodel;
 using Domains.Models;
 using ExpendatureAndMonthlyIncome.Helper;
@@ -12,6 +13,8 @@ using System.Web.UI.WebControls;
 
 namespace ExpendatureAndMonthlyIncome.Controllers
 {
+    [SessionCheck]
+
     public class ProductDataController : Controller
     {
         private readonly UnitOfWork unitOfWork = new UnitOfWork();

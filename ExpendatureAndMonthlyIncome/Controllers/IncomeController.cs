@@ -1,14 +1,17 @@
-﻿using Domain.Data.Implementation;
+﻿using BookProject.Filters;
+using Domain.Data.Implementation;
 using Domains.Models;
 using ExpendatureAndMonthlyIncome.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 
 namespace ExpendatureAndMonthlyIncome.Controllers
 {
+    [SessionCheck]
     public class IncomeController : Controller
     {
         private readonly UnitOfWork unitOfWork=new UnitOfWork();
