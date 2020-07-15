@@ -1,0 +1,186 @@
+﻿@model Domain.viewmodel.productVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table" id="tbl">
+    <tr>
+        <th>
+            Date
+        </th>
+        <th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.productDatas)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })|
+                <a href="#" data-id="@item.Id" id="abc" data-toggle="modal" data-target="#exampleModalCenter">Enter product</a>
+                <a onclick="showInPopup('@Url.Action("ProductDetails","ProductData",new {id=item.Id})')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Details</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Create product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                @Html.Partial("CreateProduct", new Domains.Models.Product())
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="example1ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Create product</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts
+{
+    <link rel="stylesheet" href="~/Content/Modal.css" />
+    
+
+    <script>
+        jQuery.noConflict();
+
+        var a;
+        $("a#abc").click(function () {
+            a = $(this).attr("data-id");
+        });
+        showInPopup = (url) => {
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (res) {
+                    $('#example1ModalCenter .modal-body').html(res.html);
+                    //$('#example1ModalCenter .modal-title').html(title);
+                    $('#example1ModalCenter').modal('show');
+                }
+            })
+        }
+
+        jQueryAjaxPost = form => {
+            try {
+                $.ajax({
+                    type: 'POST',
+                    url: form.action,
+                    data: new FormData(form),
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        if (res.isValid) {
+                            $('#view-all').html(res.html)
+                            $('#form-modal .modal-body').html('');
+                            $('#form-modal .modal-title').html('');
+                            $('#form-modal').modal('hide');
+                        }
+                        else
+                            $('#form-modal .modal-body').html(res.html);
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+                //to prevent default form submit event
+                return false;
+            } catch (ex) {
+                console.log(ex)
+            }
+        }
+
+        jQueryAjaxPost = form => {
+            try {
+                $(form).append("<input type='hidden' name='ProductDataId' value=" + a + ">");
+
+
+                $.ajax({
+                    type: 'POST',
+                    url: form.action,
+                    data: new FormData(form),
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        if (res.isvalid == true) {
+                            jQuery.noConflict();
+
+                            $('#exampleModalCenter .modal-body').html('');
+
+                            $('#exampleModalCenter').modal('hide');
+                            location.reload();
+
+                        }
+                        else
+                            $('#exampleModalCenter .modal-body').html(res.html);
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+                //to prevent default form submit event
+                return false;
+            } catch (ex) {
+                console.log(ex)
+            }
+        }
+
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

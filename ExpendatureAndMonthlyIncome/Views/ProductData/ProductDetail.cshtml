@@ -1,0 +1,68 @@
+﻿
+@model IEnumerable<Domains.Models.Product>
+
+<table class="table table-bordered">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+
+            <td>
+
+                <a onclick="DeleteProduct('@Url.Action("DeleteProduct","ProductData",new {id=item.Id})')" class="btn btn-info text-white"><i class="fas fa-trash-alt"></i> Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<script>
+    DeleteProduct = (url) => {
+        if (confirm('Are you sure to delete this record ?')) {
+            try {
+                $.ajax({
+                    type: 'POST',
+                    url:url,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        $('#example1ModalCenter .modal-body').html('');
+
+                        $('#example1ModalCenter .modal-body').html(res.html);
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+            } catch (ex) {
+                console.log(ex)
+            }
+            
+
+        }
+        return false;
+    }
+
+</script>

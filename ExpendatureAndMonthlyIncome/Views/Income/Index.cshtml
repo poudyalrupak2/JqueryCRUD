@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Domains.Models.Income>
+
+    <p>
+        <a onclick="showInPopup('@Url.Action("CreateIncome","Income")','Create product')" class="btn btn-info text-white"><i class="fas fa-plus-square"></i> Create</a>
+    </p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Income_)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Income_)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+       
+        <td>
+            <a onclick="showInPopup('@Url.Action("EditIncome","Income",new {id=item.Id})','Edit product')" class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i> Edit</a>
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

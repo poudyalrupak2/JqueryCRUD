@@ -1,0 +1,92 @@
+﻿@model Domains.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-row">
+
+        <div class="col-md-4">
+
+            <div class="form-group">
+
+                @Html.LabelFor(model => model.ProductName, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductData.TotalPrice, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.ProductData.TotalPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductData.TotalPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductData.Discount, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.ProductData.Discount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductData.Discount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductData.Date, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.ProductData.Date, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.ProductData.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="col-md-12">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductData.Details, htmlAttributes: new { @class = "control-label " })
+                @Html.EditorFor(model => model.ProductData.Details, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductData.Details, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
